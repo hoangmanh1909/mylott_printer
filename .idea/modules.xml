@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LuckylotterPrinter.iml" filepath="$PROJECT_DIR$/.idea/modules/LuckylotterPrinter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/LuckylotterPrinter.Libraries.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/LuckylotterPrinter.Libraries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/LKLPrinterCore/LuckylotterPrinter.Libraries.LKLPrinterCore.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/MaterialCamera/LuckylotterPrinter.Libraries.MaterialCamera.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/Libraries/UtilCode/LuckylotterPrinter.Libraries.UtilCode.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LuckylotterPrinter.app.unitTest.iml" />
+    </modules>
+  </component>
+</project>
