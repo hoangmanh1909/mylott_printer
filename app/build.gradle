@@ -4,13 +4,13 @@ plugins {
 
 android {
     compileSdkVersion 33
-    buildToolsVersion "30.0.2"
+    buildToolsVersion buildToolsVersion
     flavorDimensions "default"
 
     defaultConfig {
         applicationId "com.mbl.lucklotterprinter"
         minSdkVersion 26
-        //noinspection EditedTargetSdkVersion
+        //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion
         targetSdkVersion 33
         versionCode 18
         versionName "1.1.8"

@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/paid/baseline_paid_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/keyboard_arrow_down/baseline_keyboard_arrow_down_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="181818" />
-                            <entry key="outputName" value="baseline_paid_24" />
+                            <entry key="color" value="6e6e6e" />
+                            <entry key="outputName" value="baseline_keyboard_arrow_down_24" />
                             <entry key="sourceFile" value="D:\Vinatti\11.Mobilotter\03.Src\04.ScrDevV2\LuckylotterPrinter" />
                           </map>
                         </option>

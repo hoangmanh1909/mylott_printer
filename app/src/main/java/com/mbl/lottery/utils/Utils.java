@@ -19,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -110,7 +112,23 @@ public class Utils {
         }
 
     }
+    public static List<LineModel> initLine(int count) {
+        List<LineModel> lineModels = new ArrayList<>();
+        for (int i = 1; i < count + 1; i++) {
+            LineModel lineModel = new LineModel();
+            lineModel.setLine(padLeft(i));
+            lineModels.add(lineModel);
+        }
+        return lineModels;
+    }
 
+    public static String padLeft(int input) {
+        return String.format("%02d", input);
+    }
+
+    public static String padLeft(long input) {
+        return String.format("%02d", input);
+    }
     public static String getKenoPlus(String code) {
         switch (code) {
             case Constants.CHAN:
@@ -330,5 +348,107 @@ public class Utils {
         }
 
         return finalText;
+    }
+
+    public static List<LineModel> sortLine(List<LineModel> lineModels) {
+        int[] arr = new int[lineModels.size()];
+        for (int i = 0; i < lineModels.size(); i++) {
+            arr[i] = Integer.parseInt(lineModels.get(i).getLine());
+        }
+
+        Arrays.sort(arr);
+        List<LineModel> mReturn = new ArrayList<>();
+        for (int num : arr) {
+            LineModel lineModel = new LineModel();
+            lineModel.setLine(padLeft(num));
+            mReturn.add(lineModel);
+        }
+        return mReturn;
+    }
+
+    public static int getAmountPowerBySystematic(int systematic) {
+        int data = 10000;
+        switch (systematic) {
+            case 5:
+                data = 500000;
+                break;
+            case 7:
+                data = 70000;
+                break;
+            case 8:
+                data = 280000;
+                break;
+            case 9:
+                data = 840000;
+                break;
+            case 10:
+                data = 2100000;
+                break;
+            case 11:
+                data = 4620000;
+                break;
+            case 12:
+                data = 9240000;
+                break;
+            case 13:
+                data = 17160000;
+                break;
+            case 14:
+                data = 30030000;
+                break;
+            case 15:
+                data = 50050000;
+                break;
+            case 18:
+                data = 185640000;
+                break;
+            default:
+                data = 10000;
+                break;
+        }
+        return data;
+    }
+
+    public static int getAmountMegaBySystematic(int systematic) {
+        int data = 10000;
+        switch (systematic) {
+            case 5:
+                data = 400000;
+                break;
+            case 7:
+                data = 70000;
+                break;
+            case 8:
+                data = 280000;
+                break;
+            case 9:
+                data = 840000;
+                break;
+            case 10:
+                data = 2100000;
+                break;
+            case 11:
+                data = 4620000;
+                break;
+            case 12:
+                data = 9240000;
+                break;
+            case 13:
+                data = 17160000;
+                break;
+            case 14:
+                data = 30030000;
+                break;
+            case 15:
+                data = 50050000;
+                break;
+            case 18:
+                data = 185640000;
+                break;
+            default:
+                data = 10000;
+                break;
+        }
+        return data;
     }
 }

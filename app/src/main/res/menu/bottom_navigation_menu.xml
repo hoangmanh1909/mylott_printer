@@ -4,7 +4,10 @@
         android:id="@+id/page_home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Trang chủ"/>
-
+    <item
+        android:id="@+id/page_together"
+        android:icon="@drawable/baseline_shopping_bag_24"
+        android:title="Bao chung"/>
     <item
         android:id="@+id/page_persional"
         android:icon="@drawable/ic_baseline_account_circle_24"
