@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.core.base.adapter.RecyclerBaseAdapter;
@@ -55,6 +56,10 @@ public class LineAdapter extends RecyclerBaseAdapter {
             LineModel lineModel = (LineModel) model;
             tvNumber.setText(lineModel.getLine());
             tvNumber.setVisibility(View.VISIBLE);
+            if(lineModel.isSelected()){
+                tvNumber.setBackground(ContextCompat.getDrawable(mContext, R.drawable.line_text_cycle_bg));
+                tvNumber.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            }
         }
 
     }

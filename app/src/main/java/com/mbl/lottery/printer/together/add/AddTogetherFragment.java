@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,12 +26,14 @@ import com.core.base.viper.ViewFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.mbl.lottery.BuildConfig;
 import com.mbl.lottery.R;
 import com.mbl.lottery.model.DrawModel;
 import com.mbl.lottery.model.EmployeeModel;
 import com.mbl.lottery.model.LineModel;
 import com.mbl.lottery.model.ProductModel;
 import com.mbl.lottery.model.request.TogetherTicketAddRequest;
+import com.mbl.lottery.model.response.TogetherTicketSearchResponse;
 import com.mbl.lottery.printer.detail.DetailFragment;
 import com.mbl.lottery.utils.BitmapUtils;
 import com.mbl.lottery.utils.Constants;
@@ -71,6 +74,8 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
     TextView tv_draw;
     @BindView(R.id.tv_amount)
     TextView tv_amount;
+    @BindView(R.id.btn_ok)
+    Button btn_ok;
     @BindView(R.id.ll_product)
     LinearLayout ll_product;
     @BindView(R.id.ll_bag)
@@ -89,32 +94,78 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
     EmployeeModel employeeModel;
     int price = 0;
     String numberOfLine = "";
+    String mode = "LOAD";
+
     public static AddTogetherFragment getInstance() {
         return new AddTogetherFragment();
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_add_together;
     }
+
     @Override
     public void initLayout() {
         super.initLayout();
-        mLineModels = Utils.initLine(mCount);
-        mReturnLineModels = new ArrayList<>();
-        SharedPref sharedPref = new SharedPref(getActivity());
-        price = Utils.getAmountMegaBySystematic(mBag);
+        mLineModels = new ArrayList<>();
 
-        tv_amount.setText(NumberUtils.formatPriceNumber(price));
+        SharedPref sharedPref = new SharedPref(getActivity());
         employeeModel = sharedPref.getEmployeeModel();
+
+        Intent intent = getActivity().getIntent();
+
+        TogetherTicketSearchResponse ticket = (TogetherTicketSearchResponse) intent.getSerializableExtra(Constants.ORDER_MODEL);
+        if (ticket != null) {
+            mode = "VIEW";
+            tv_amount.setText(NumberUtils.formatPriceNumber(ticket.getPrice()));
+            productID = ticket.getProductID();
+            mBag = ticket.getSystematic();
+            if (ticket.getProductID() == Constants.PRODUCT_MEGA) {
+                mCount = 45;
+                tv_product.setText("Mega 6/45");
+            } else {
+                mCount = 55;
+                tv_product.setText("Power 6/55");
+            }
+            for (int i = 1; i < mCount + 1; i++) {
+                LineModel lineModel = new LineModel();
+                if (ticket.getNumberOfLines().contains(Utils.padLeft(i))) {
+                    lineModel.setSelected(true);
+                } else {
+                    lineModel.setSelected(false);
+                }
+                lineModel.setLine(Utils.padLeft(i));
+                mLineModels.add(lineModel);
+            }
+            tv_system.setText("Bao " + ticket.getSystematic());
+            mDrawModel = new DrawModel();
+            mDrawModel.setDrawCode(ticket.getDrawCode());
+            mDrawModel.setDrawDate(ticket.getDrawDate());
+            tv_draw.setText("Kỳ: #" + mDrawModel.getDrawCode() + " - " + mDrawModel.getDrawDate());
+            Uri imageuri = Uri.parse(BuildConfig.IMAGE_BROWSER_URL + ticket.getImgBefore());
+            image_before.setImageURI(imageuri);
+//            Picasso
+//                    .get()
+//                    .load(BuildConfig.IMAGE_URL + mItemModels.get(mIndexItem).getImgBefore())
+//                    .into(image_before);
+            if(ticket.getQuantity() > 0){
+                btn_ok.setVisibility(View.GONE);
+            }
+        } else {
+            mLineModels = Utils.initLine(mCount);
+            mReturnLineModels = new ArrayList<>();
+            price = Utils.getAmountMegaBySystematic(mBag);
+            mPresenter.getDrawMega();
+        }
+
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
         flexboxLayoutManager.setJustifyContent(JustifyContent.CENTER);
         recycle.setLayoutManager(flexboxLayoutManager);
-        mPresenter.getDrawMega();
         mLineAdapterA = new LineAdapter(getContext(), mLineModels) {
             @Override
             public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
-
                 holder.itemView.setOnClickListener(view1 -> {
                     LineModel lineModel = mLineModels.get(position);
                     boolean isCheck = ArrayUtils.contains(mReturnLineModels.toArray(), lineModel);
@@ -170,13 +221,13 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
         }
     }
 
-    void ok(){
-        if(fileName.isEmpty()){
-            Toast.showToast(getContext(),"Bạn chưa cập nhật ảnh vé");
+    void ok() {
+        if (fileName.isEmpty()) {
+            Toast.showToast(getContext(), "Bạn chưa cập nhật ảnh vé");
             return;
         }
-        if(mDrawModel == null){
-            Toast.showToast(getContext(),"Không lấy được thông tin kỳ quay số mở thưởng");
+        if (mDrawModel == null) {
+            Toast.showToast(getContext(), "Không lấy được thông tin kỳ quay số mở thưởng");
             return;
         }
 
@@ -193,7 +244,6 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
     }
 
 
-
     @Override
     public void showImage(String file) {
         fileName = file;
@@ -201,7 +251,7 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
 
     @Override
     public void showDraw(List<DrawModel> drawModels) {
-        if(drawModels.size() > 0) {
+        if (drawModels.size() > 0) {
             mDrawModel = drawModels.get(0);
             tv_draw.setText("Kỳ: #" + mDrawModel.getDrawCode() + " - " + mDrawModel.getDrawDate());
         }
@@ -249,6 +299,7 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
                 tv_amount.setText(NumberUtils.formatPriceNumber(price));
                 mLineModels.clear();
                 mLineModels = Utils.initLine(mCount);
+                mLineAdapterA.clear();
                 mLineAdapterA.addItems(mLineModels);
                 return true;
             }
@@ -321,8 +372,8 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
         Uri picUri = Uri.fromFile(new File(path_media));
         List<LineModel> lineModels = new ArrayList<>();
         image_before.setImageURI(picUri);
-        List<LineModel> lineModels1 =  Utils.sortLine(mReturnLineModels);
-        if (lineModels1.size() == mBag) {
+        List<LineModel> lineModels1 = Utils.sortLine(mReturnLineModels);
+        if (mReturnLineModels.size() == mBag) {
             numberOfLine = "";
             for (int i = 0; i < lineModels1.size(); i++) {
                 if (numberOfLine.isEmpty()) {
@@ -374,8 +425,8 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
 
         List<LineModel> lineModels = new ArrayList<>();
         String draw = "Kỳ #" + mDrawModel.getDrawCode() + ", Ngày quay:" + mDrawModel.getDrawDate();
-        List<LineModel> lineModels1 =  Utils.sortLine(mReturnLineModels);
-        if (lineModels1.size() == mBag) {
+        List<LineModel> lineModels1 = Utils.sortLine(mReturnLineModels);
+        if (mReturnLineModels.size() == mBag) {
             numberOfLine = "";
             for (int i = 0; i < lineModels1.size(); i++) {
                 if (numberOfLine.isEmpty()) {

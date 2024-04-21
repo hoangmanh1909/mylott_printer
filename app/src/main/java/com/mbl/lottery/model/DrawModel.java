@@ -11,13 +11,13 @@ public class DrawModel implements Serializable {
     private Integer id;
     @SerializedName("DrawCode")
     @Expose
-    private Object drawCode;
+    private String drawCode;
     @SerializedName("DrawDate")
     @Expose
-    private Object drawDate;
+    private String drawDate;
     @SerializedName("DrawTime")
     @Expose
-    private Object drawTime;
+    private String drawTime;
 
     public Integer getId() {
         return id;
@@ -27,27 +27,27 @@ public class DrawModel implements Serializable {
         this.id = id;
     }
 
-    public Object getDrawCode() {
+    public String getDrawCode() {
         return drawCode;
     }
 
-    public void setDrawCode(Object drawCode) {
+    public void setDrawCode(String drawCode) {
         this.drawCode = drawCode;
     }
 
-    public Object getDrawDate() {
+    public String getDrawDate() {
         return drawDate;
     }
 
-    public void setDrawDate(Object drawDate) {
+    public void setDrawDate(String drawDate) {
         this.drawDate = drawDate;
     }
 
-    public Object getDrawTime() {
+    public String getDrawTime() {
         return drawTime;
     }
 
-    public void setDrawTime(Object drawTime) {
+    public void setDrawTime(String drawTime) {
         this.drawTime = drawTime;
     }
 }

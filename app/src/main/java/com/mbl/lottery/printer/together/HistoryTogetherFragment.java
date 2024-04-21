@@ -35,7 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class HistoryTogetherFragment extends ViewFragment<HistoryTogetherContract.Presenter> implements HistoryTogetherContract.View, SwipeRefreshLayout.OnRefreshListener{
+public class HistoryTogetherFragment extends ViewFragment<HistoryTogetherContract.Presenter> implements HistoryTogetherContract.View, SwipeRefreshLayout.OnRefreshListener {
     public final String TAG = "HistoryTogetherFragment";
     @BindView(R.id.recycle)
     RecyclerView recycle;
@@ -52,6 +52,7 @@ public class HistoryTogetherFragment extends ViewFragment<HistoryTogetherContrac
     int productID = 0;
     HistoryTogetherAdapter mAdapter;
     List<TogetherTicketSearchResponse> mOrderModels;
+
     public static HistoryTogetherFragment getInstance() {
         return new HistoryTogetherFragment();
     }
@@ -78,11 +79,10 @@ public class HistoryTogetherFragment extends ViewFragment<HistoryTogetherContrac
                 holder.itemView.setOnClickListener(v -> {
                     TogetherTicketSearchResponse item = mOrderModels.get(position);
 
-                        if (item.getProductID() == Constants.PRODUCT_KENO) {
-                            Intent intent = new Intent(requireActivity(), AddTogetherActivity.class);
-//                            intent.putExtra(Constants.ORDER_MODEL, item);
-                            startActivity(intent);
-                        }
+                    Intent intent = new Intent(requireActivity(), AddTogetherActivity.class);
+                    intent.putExtra(Constants.ORDER_MODEL, (Serializable) item);
+                    startActivity(intent);
+
 
                 });
             }

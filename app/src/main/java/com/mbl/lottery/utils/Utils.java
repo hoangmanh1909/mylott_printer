@@ -116,6 +116,7 @@ public class Utils {
         List<LineModel> lineModels = new ArrayList<>();
         for (int i = 1; i < count + 1; i++) {
             LineModel lineModel = new LineModel();
+            lineModel.setSelected(false);
             lineModel.setLine(padLeft(i));
             lineModels.add(lineModel);
         }

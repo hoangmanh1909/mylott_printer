@@ -3,7 +3,9 @@ package com.mbl.lottery.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TogetherTicketSearchResponse {
+import java.io.Serializable;
+
+public class TogetherTicketSearchResponse implements Serializable {
     @SerializedName("ID")
     @Expose
     private Integer id;

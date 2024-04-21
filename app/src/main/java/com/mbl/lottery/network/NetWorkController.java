@@ -17,6 +17,9 @@ import com.mbl.lottery.model.request.OrderTablesImagesRequest;
 import com.mbl.lottery.model.request.OutOfNumberRequest;
 import com.mbl.lottery.model.request.RequestObject;
 import com.mbl.lottery.model.request.SearchOrderRequest;
+import com.mbl.lottery.model.request.TogetherTicketAddRequest;
+import com.mbl.lottery.model.request.TogetherTicketEditRequest;
+import com.mbl.lottery.model.request.TogetherTicketSearchRequest;
 import com.mbl.lottery.model.response.BaseResponse;
 import com.mbl.lottery.model.response.DrawResponse;
 import com.mbl.lottery.model.response.GetItemByCodeResponse;
@@ -265,6 +268,62 @@ public class NetWorkController {
             String data = getGson().toJson(request);
             String signature = RSAUtil.SHA256(AccessKey + data);
             RequestObject requestData = new RequestObject("", "", "OD_UPLOAD_IMG_KENO", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void searchTogetherTicket(TogetherTicketSearchRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "TT_SEARCH", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void addTogetherTicket(TogetherTicketAddRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "TT_ADD_NEW", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void editTogetherTicket(TogetherTicketEditRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "TT_EDIT", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getDrawMega(CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson("");
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "DIC_GET_DRAW_MEGA", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getDrawPower(CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson("");
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "DIC_GET_DRAW_POWER", data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
             call.enqueue(callback);
         } catch (Exception e) {
