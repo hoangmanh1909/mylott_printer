@@ -103,6 +103,16 @@ public class HistoryTogetherFragment extends ViewFragment<HistoryTogetherContrac
     }
 
     @Override
+    public void onDisplay() {
+        super.onDisplay();
+
+        mAdapter.setAllItemsEnabled(false);
+        TogetherTicketSearchRequest req = new TogetherTicketSearchRequest();
+        req.setProductID(productID);
+        mPresenter.getTicket(req);
+    }
+
+    @Override
     public void showTicket(List<TogetherTicketSearchResponse> models) {
         if (models.size() > 0)
             noData.setVisibility(View.GONE);

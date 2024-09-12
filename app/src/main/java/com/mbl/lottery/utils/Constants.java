@@ -17,7 +17,8 @@ public class Constants {
 
     public static final String ORDER_MODEL = "ORDER_MODEL";
     public static final String DRAW_MODEL = "DRAW_MODEL";
-
+    public static final String MODE = "MODE";
+    public static final String AREA = "AREA";
     public static final String IMAGE_BEFORE = "IMAGE_BEFORE";
     public static final String IMAGE_AFTER = "IMAGE_AFTER";
 

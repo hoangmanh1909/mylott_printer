@@ -12,8 +12,8 @@ android {
         minSdkVersion 26
         //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion
         targetSdkVersion 33
-        versionCode 18
-        versionName "1.1.8"
+        versionCode 21
+        versionName "2.0.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,10 +36,10 @@ android {
             def API_URL = '"https://gw.mylott.vn/"'
 
             def API_KEY = '"DD50AHHRY37CE42C6AAE3T27139E144D5DE9C47D6B08A6FEBFFC9A3B397AF354"'
-            //def IMAGE_URL = '"https://df.mylott.vn/"'
-            //def IMAGE_BROWSER_URL = '"https://df.mylott.vn/assets/images/"'
-            def IMAGE_URL = '"https://dfshare.mylott.vn/"'
-            def IMAGE_BROWSER_URL = '"https://dfshare.mylott.vn/assets/images/"'
+            def IMAGE_URL = '"https://df.mylott.vn/"'
+            def IMAGE_BROWSER_URL = '"https://df.mylott.vn/mylott/"'
+//            def IMAGE_URL = '"https://dfshare.mylott.vn/"'
+//            def IMAGE_BROWSER_URL = '"https://dfshare.mylott.vn/assets/images/"'
 
 
             buildConfigField("String", "IMAGE_URL", IMAGE_URL)
@@ -92,4 +92,7 @@ dependencies {
     implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.github.drawers:SpinnerDatePicker:1.0.6@aar'
+//    implementation 'me.dm7.barcodescanner:zbar:1.9.8'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 }

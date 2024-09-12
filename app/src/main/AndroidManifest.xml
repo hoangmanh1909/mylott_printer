@@ -76,6 +76,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".printer.together.add.AddTogetherActivity"/>
         <activity android:name=".printer.together.HistoryTogetherActivity"/>
+        <activity android:name=".xskt.add.XSKTAddTicketActivity"/>
     </application>
 
 </manifest>

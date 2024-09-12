@@ -3,6 +3,7 @@ package com.mbl.lottery.printer.together.add;
 import com.core.base.viper.Interactor;
 import com.mbl.lottery.model.SimpleResult;
 import com.mbl.lottery.model.request.TogetherTicketAddRequest;
+import com.mbl.lottery.model.request.TogetherTicketEditRequest;
 import com.mbl.lottery.network.CommonCallback;
 import com.mbl.lottery.network.NetWorkController;
 
@@ -16,6 +17,11 @@ public class AddTogetherInteractor extends Interactor<AddTogetherContract.Presen
     @Override
     public void addTogether(TogetherTicketAddRequest req, CommonCallback<SimpleResult> callback) {
         NetWorkController.addTogetherTicket(req, callback);
+    }
+
+    @Override
+    public void editTogether(TogetherTicketEditRequest req, CommonCallback<SimpleResult> callback) {
+        NetWorkController.editTogetherTicket(req, callback);
     }
 
     @Override

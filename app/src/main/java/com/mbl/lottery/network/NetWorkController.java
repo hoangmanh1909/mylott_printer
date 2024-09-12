@@ -15,11 +15,16 @@ import com.mbl.lottery.model.request.LoginRequest;
 import com.mbl.lottery.model.request.OrderImagesRequest;
 import com.mbl.lottery.model.request.OrderTablesImagesRequest;
 import com.mbl.lottery.model.request.OutOfNumberRequest;
+import com.mbl.lottery.model.request.ProviderSearchRequest;
 import com.mbl.lottery.model.request.RequestObject;
 import com.mbl.lottery.model.request.SearchOrderRequest;
 import com.mbl.lottery.model.request.TogetherTicketAddRequest;
 import com.mbl.lottery.model.request.TogetherTicketEditRequest;
 import com.mbl.lottery.model.request.TogetherTicketSearchRequest;
+import com.mbl.lottery.model.request.XSKTAddTicketRequest;
+import com.mbl.lottery.model.request.XSKTBaseV1Request;
+import com.mbl.lottery.model.request.XSKTRadioSearchRequest;
+import com.mbl.lottery.model.request.XSKTSearchTicketRequest;
 import com.mbl.lottery.model.response.BaseResponse;
 import com.mbl.lottery.model.response.DrawResponse;
 import com.mbl.lottery.model.response.GetItemByCodeResponse;
@@ -96,8 +101,52 @@ public class NetWorkController {
         Call<SimpleResult> call = getAPIBuilderImg().postImage(body);
         call.enqueue(callback);
     }
-
-
+    public static void searchRadioByDate(XSKTRadioSearchRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_SEARCH_RADIO_BY_DATE", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void searchProvider(ProviderSearchRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_PROVIDER_SEARCH", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void searchXsktTicket(XSKTSearchTicketRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_SEARCH_TICKET", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getItemXsktByOrderCode(String code, CommonCallback<SimpleResult> callback) {
+        try {
+            BaseCoreRequest req = new BaseCoreRequest();
+            req.setCode(code);
+            String data = getGson().toJson(req);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "OD_GET_ITEM_XSKT_BY_CODE", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void login(LoginRequest request, CommonCallback<SimpleResult> callback) {
         try {
             String data = getGson().toJson(request);
@@ -324,6 +373,41 @@ public class NetWorkController {
             String data = getGson().toJson("");
             String signature = RSAUtil.SHA256(AccessKey + data);
             RequestObject requestData = new RequestObject("", "", "DIC_GET_DRAW_POWER", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getBaseInfo(String code, CommonCallback<SimpleResult> callback) {
+        try {
+            BaseCoreRequest req = new BaseCoreRequest();
+            req.setCode(code);
+            String data = getGson().toJson(req);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_BASE_INFO_BY_DRAWLER", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void xsktAddTicket(XSKTAddTicketRequest request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_ADD_TICKET", data, "", signature);
+            Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
+            call.enqueue(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void xsktChangeStatus(XSKTBaseV1Request request, CommonCallback<SimpleResult> callback) {
+        try {
+            String data = getGson().toJson(request);
+            String signature = RSAUtil.SHA256(AccessKey + data);
+            RequestObject requestData = new RequestObject("", "", "XSKT_TICKET_CHANGE_STATUS", data, "", signature);
             Call<SimpleResult> call = getAPIBuilder().commonService(requestData);
             call.enqueue(callback);
         } catch (Exception e) {

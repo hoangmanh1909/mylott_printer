@@ -33,6 +33,7 @@ import com.mbl.lottery.model.EmployeeModel;
 import com.mbl.lottery.model.LineModel;
 import com.mbl.lottery.model.ProductModel;
 import com.mbl.lottery.model.request.TogetherTicketAddRequest;
+import com.mbl.lottery.model.request.TogetherTicketEditRequest;
 import com.mbl.lottery.model.response.TogetherTicketSearchResponse;
 import com.mbl.lottery.printer.detail.DetailFragment;
 import com.mbl.lottery.utils.BitmapUtils;
@@ -95,7 +96,7 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
     int price = 0;
     String numberOfLine = "";
     String mode = "LOAD";
-
+    TogetherTicketSearchResponse ticket;
     public static AddTogetherFragment getInstance() {
         return new AddTogetherFragment();
     }
@@ -109,13 +110,14 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
     public void initLayout() {
         super.initLayout();
         mLineModels = new ArrayList<>();
+        mReturnLineModels = new ArrayList<>();
 
         SharedPref sharedPref = new SharedPref(getActivity());
         employeeModel = sharedPref.getEmployeeModel();
 
         Intent intent = getActivity().getIntent();
 
-        TogetherTicketSearchResponse ticket = (TogetherTicketSearchResponse) intent.getSerializableExtra(Constants.ORDER_MODEL);
+         ticket = (TogetherTicketSearchResponse) intent.getSerializableExtra(Constants.ORDER_MODEL);
         if (ticket != null) {
             mode = "VIEW";
             tv_amount.setText(NumberUtils.formatPriceNumber(ticket.getPrice()));
@@ -132,6 +134,8 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
                 LineModel lineModel = new LineModel();
                 if (ticket.getNumberOfLines().contains(Utils.padLeft(i))) {
                     lineModel.setSelected(true);
+                    mSelectCount++;
+                    mReturnLineModels.add(lineModel);
                 } else {
                     lineModel.setSelected(false);
                 }
@@ -142,7 +146,9 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
             mDrawModel = new DrawModel();
             mDrawModel.setDrawCode(ticket.getDrawCode());
             mDrawModel.setDrawDate(ticket.getDrawDate());
+            fileName = ticket.getImgBefore();
             tv_draw.setText("Kỳ: #" + mDrawModel.getDrawCode() + " - " + mDrawModel.getDrawDate());
+            tv_count.setText("Bạn đã chọn " + mSelectCount + "/" + mBag + " bộ số");
             Uri imageuri = Uri.parse(BuildConfig.IMAGE_BROWSER_URL + ticket.getImgBefore());
             image_before.setImageURI(imageuri);
 //            Picasso
@@ -152,10 +158,11 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
             if(ticket.getQuantity() > 0){
                 btn_ok.setVisibility(View.GONE);
             }
+            price = ticket.getPrice();
         } else {
             mLineModels = Utils.initLine(mCount);
-            mReturnLineModels = new ArrayList<>();
             price = Utils.getAmountMegaBySystematic(mBag);
+            tv_amount.setText(NumberUtils.formatPriceNumber(price));
             mPresenter.getDrawMega();
         }
 
@@ -226,21 +233,49 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
             Toast.showToast(getContext(), "Bạn chưa cập nhật ảnh vé");
             return;
         }
+        if(mReturnLineModels.size() != mBag){
+            Toast.showToast(getContext(), "Bạn chưa chọn đủ bộ số");
+            return;
+        }
         if (mDrawModel == null) {
             Toast.showToast(getContext(), "Không lấy được thông tin kỳ quay số mở thưởng");
             return;
         }
 
-        TogetherTicketAddRequest req = new TogetherTicketAddRequest();
-        req.setCreatedID(employeeModel.getiD());
-        req.setDrawCode(mDrawModel.getDrawCode());
-        req.setDrawDate(mDrawModel.getDrawDate());
-        req.setProductID(productID);
-        req.setImgBefore(fileName);
-        req.setSystematic(mBag);
-        req.setPrice(price);
-        req.setNumberOfLines(numberOfLine);
-        mPresenter.addTogether(req);
+        if(mode.equals("VIEW")){
+            numberOfLine = "";
+            List<LineModel> lineModels1 = Utils.sortLine(mReturnLineModels);
+            for (int i = 0; i < lineModels1.size(); i++) {
+                if (numberOfLine.isEmpty()) {
+                    numberOfLine = lineModels1.get(i).getLine();
+                } else {
+                    numberOfLine = numberOfLine + "," + lineModels1.get(i).getLine();
+                }
+            }
+
+            TogetherTicketEditRequest req = new TogetherTicketEditRequest();
+            req.setId(ticket.getId());
+            req.setDrawCode(mDrawModel.getDrawCode());
+            req.setDrawDate(mDrawModel.getDrawDate());
+            req.setProductID(productID);
+            req.setImgBefore(fileName);
+            req.setSystematic(mBag);
+            req.setPrice(price);
+            req.setNumberOfLines(numberOfLine);
+            req.setStatus(ticket.getStatus());
+            mPresenter.editTogether(req);
+        }else {
+            TogetherTicketAddRequest req = new TogetherTicketAddRequest();
+            req.setCreatedID(employeeModel.getiD());
+            req.setDrawCode(mDrawModel.getDrawCode());
+            req.setDrawDate(mDrawModel.getDrawDate());
+            req.setProductID(productID);
+            req.setImgBefore(fileName);
+            req.setSystematic(mBag);
+            req.setPrice(price);
+            req.setNumberOfLines(numberOfLine);
+            mPresenter.addTogether(req);
+        }
     }
 
 
@@ -297,6 +332,7 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
                 tv_count.setText("Bạn đã chọn " + mSelectCount + "/" + mBag + " bộ số");
 
                 tv_amount.setText(NumberUtils.formatPriceNumber(price));
+                mReturnLineModels.clear();
                 mLineModels.clear();
                 mLineModels = Utils.initLine(mCount);
                 mLineAdapterA.clear();
@@ -350,6 +386,11 @@ public class AddTogetherFragment extends ViewFragment<AddTogetherContract.Presen
                 }
                 tv_amount.setText(NumberUtils.formatPriceNumber(price));
                 tv_count.setText("Bạn đã chọn " + mSelectCount + "/" + mBag + " bộ số");
+                mReturnLineModels.clear();
+                mLineModels.clear();
+                mLineModels = Utils.initLine(mCount);
+                mLineAdapterA.clear();
+                mLineAdapterA.addItems(mLineModels);
                 return true;
             }
         });

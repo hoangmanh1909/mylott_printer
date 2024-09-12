@@ -9,6 +9,10 @@
         android:icon="@drawable/baseline_shopping_bag_24"
         android:title="Bao chung"/>
     <item
+        android:id="@+id/page_xskt"
+        android:icon="@drawable/baseline_local_offer_24"
+        android:title="Kiến thiết"/>
+    <item
         android:id="@+id/page_persional"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="Cá nhân"/>

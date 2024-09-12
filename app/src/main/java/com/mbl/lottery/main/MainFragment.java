@@ -24,6 +24,7 @@ import com.mbl.lottery.service.BluetoothServices;
 import com.mbl.lottery.together.TogetherPresenter;
 import com.mbl.lottery.utils.Constants;
 import com.mbl.lottery.utils.SharedPref;
+import com.mbl.lottery.xskt.XSKTPresenter;
 
 import java.util.Set;
 
@@ -38,6 +39,7 @@ public class MainFragment extends ViewFragment<MainContract.Presenter> implement
 
     private Fragment fragmentHome;
     private Fragment fragmentT;
+    private Fragment fragmentXSKT;
     private Fragment fragmentPersonal;
 
     FragmentPagerAdapter adapter;
@@ -127,7 +129,7 @@ public class MainFragment extends ViewFragment<MainContract.Presenter> implement
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
         };
 
@@ -159,8 +161,11 @@ public class MainFragment extends ViewFragment<MainContract.Presenter> implement
                 case R.id.page_together:
                     viewPager.setCurrentItem(1);
                     break;
-                case R.id.page_persional:
+                case R.id.page_xskt:
                     viewPager.setCurrentItem(2);
+                    break;
+                case R.id.page_persional:
+                    viewPager.setCurrentItem(3);
                     break;
             }
             return true;
@@ -180,6 +185,11 @@ public class MainFragment extends ViewFragment<MainContract.Presenter> implement
                 }
                 return fragmentT;
             case 2:
+                if (fragmentXSKT == null) {
+                    fragmentXSKT = new XSKTPresenter((ContainerView) getActivity()).getFragment();
+                }
+                return fragmentXSKT;
+            case 3:
                 if (fragmentPersonal == null) {
                     fragmentPersonal = new PersonalPresenter((ContainerView) getActivity()).getFragment();
                 }
